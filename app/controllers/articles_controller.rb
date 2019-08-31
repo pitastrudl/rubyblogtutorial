@@ -1,13 +1,17 @@
 class ArticlesController < ApplicationController
   def new 
+    @article = Article.new
   end
 
   def create
     #render plain: params[:article].inspect # render params in plain view 
     @article = Article.new(article_params) # contains params. 
 
-    @article.save
-    redirect_to @article
+    if @article.save 
+      redirect_to @article
+    else
+      render 'new'
+    end
   end
 
   def index
